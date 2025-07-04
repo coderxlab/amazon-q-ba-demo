@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calorie Counter - No Results Found">
+    <title>Calorie Counter - No Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #FFFBFE;
+            color: #1C1B1F;
+            min-height: 100vh;
+        }
+
+        .search-header {
+            height: 72px;
+            background-color: #FFFBFE;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.16);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: calc(100% - 32px);
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 40px;
+            padding: 8px 40px 8px 12px;
+            border: 1px solid #79747E;
+            border-radius: 4px;
+            font-size: 14px;
+            background: transparent;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border: 2px solid #1976D2;
+            padding: 7px 39px 7px 11px;
+        }
+
+        .edit-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: #49454F;
+            cursor: pointer;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 72px);
+            padding: 32px 16px;
+        }
+
+        .empty-state-container {
+            text-align: center;
+            max-width: 480px;
+            width: 90%;
+        }
+
+        .empty-state-icon {
+            width: 120px;
+            height: 120px;
+            background-color: #F3EDF7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .search-off-icon {
+            width: 64px;
+            height: 64px;
+            color: #49454F;
+        }
+
+        .no-results-title {
+            font-size: 24px;
+            font-weight: 400;
+            color: #1C1B1F;
+            margin-bottom: 8px;
+        }
+
+        .no-results-subtitle {
+            font-size: 16px;
+            color: #49454F;
+            margin-bottom: 32px;
+        }
+
+        .suggestions-card {
+            background: #FFFBFE;
+            border-radius: 12px;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.12);
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .suggestions-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1C1B1F;
+            margin-bottom: 16px;
+        }
+
+        .suggestions-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .suggestions-list li {
+            font-size: 14px;
+            color: #49454F;
+            line-height: 20px;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .suggestions-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #1976D2;
+        }
+
+        .popular-searches {
+            width: 100%;
+            text-align: left;
+        }
+
+        .popular-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1C1B1F;
+            margin-bottom: 12px;
+        }
+
+        .search-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .search-chip {
+            height: 32px;
+            padding: 0 12px;
+            background: #E7E0EC;
+            color: #49454F;
+            border: none;
+            border-radius: 16px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-chip:hover {
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.12);
+            background: #DDD5E0;
+        }
+
+        .try-again-button {
+            width: 100%;
+            height: 40px;
+            background: #1976D2;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .try-again-button:hover {
+            background: #1565C0;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 24px 12px;
+            }
+            
+            .empty-state-icon {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .search-off-icon {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .no-results-title {
+                font-size: 20px;
+            }
+            
+            .suggestions-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="search-header">
+        <div class="search-bar">
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput"
+                value="xyz123"
+                aria-label="Search for food"
+            >
+            <svg class="edit-icon" viewBox="0 0 24 24" fill="currentColor" onclick="editSearch()">
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+            </svg>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="empty-state-container">
+            <div class="empty-state-icon">
+                <svg class="search-off-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    <path d="M2 2l20 20-1.41 1.41L2 3.41z" stroke="currentColor" stroke-width="1"/>
+                </svg>
+            </div>
+            
+            <h1 class="no-results-title">No results found</h1>
+            <p class="no-results-subtitle">for '<span id="searchTerm">xyz123</span>'</p>
+            
+            <div class="suggestions-card">
+                <h2 class="suggestions-title">Try these suggestions:</h2>
+                <ul class="suggestions-list">
+                    <li>Check your spelling and try again</li>
+                    <li>Try using more general terms (e.g., "chicken" instead of "chicken breast teriyaki")</li>
+                    <li>Use common food names instead of brand names</li>
+                    <li>Try searching for individual ingredients</li>
+                    <li>Use alternative names for the same food</li>
+                </ul>
+            </div>
+            
+            <div class="popular-searches">
+                <h3 class="popular-title">Popular searches:</h3>
+                <div class="search-tags">
+                    <button class="search-chip" onclick="searchFor('chicken breast')">chicken breast</button>
+                    <button class="search-chip" onclick="searchFor('apple')">apple</button>
+                    <button class="search-chip" onclick="searchFor('salmon')">salmon</button>
+                    <button class="search-chip" onclick="searchFor('broccoli')">broccoli</button>
+                    <button class="search-chip" onclick="searchFor('rice')">rice</button>
+                    <button class="search-chip" onclick="searchFor('banana')">banana</button>
+                    <button class="search-chip" onclick="searchFor('eggs')">eggs</button>
+                    <button class="search-chip" onclick="searchFor('oatmeal')">oatmeal</button>
+                </div>
+            </div>
+            
+            <button class="try-again-button" onclick="tryAgain()">
+                Try Another Search
+            </button>
+        </div>
+    </main>
+
+    <script>
+        function editSearch() {
+            const input = document.getElementById('searchInput');
+            input.focus();
+            input.select();
+        }
+
+        function searchFor(term) {
+            const input = document.getElementById('searchInput');
+            input.value = term;
+            performSearch(term);
+        }
+
+        function tryAgain() {
+            const input = document.getElementById('searchInput');
+            input.focus();
+            input.select();
+        }
+
+        function performSearch(query) {
+            // Simulate search - in real app, this would make an API call
+            if (query.toLowerCase().includes('chicken') || 
+                query.toLowerCase().includes('apple') || 
+                query.toLowerCase().includes('salmon')) {
+                window.location.href = `search-results.html?q=${encodeURIComponent(query)}`;
+            } else {
+                // Stay on no results page with new search term
+                document.getElementById('searchTerm').textContent = query;
+                window.history.pushState({}, '', `no-results.html?q=${encodeURIComponent(query)}`);
+            }
+        }
+
+        // Handle search input
+        document.getElementById('searchInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const newQuery = this.value.trim();
+                if (newQuery) {
+                    performSearch(newQuery);
+                }
+            }
+        });
+
+        // Initialize search term from URL or input
+        function initializeSearchTerm() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryParam = urlParams.get('q');
+            const inputValue = document.getElementById('searchInput').value;
+            
+            const searchTerm = queryParam || inputValue || 'xyz123';
+            document.getElementById('searchTerm').textContent = searchTerm;
+            document.getElementById('searchInput').value = searchTerm;
+        }
+
+        // Initialize page
+        initializeSearchTerm();
+    </script>
+</body>
+</html>

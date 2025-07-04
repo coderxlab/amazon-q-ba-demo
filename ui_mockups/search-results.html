@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calorie Counter - Search Results">
+    <title>Calorie Counter - Search Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #FFFBFE;
+            color: #1C1B1F;
+            min-height: 100vh;
+        }
+
+        .search-header {
+            height: 72px;
+            background-color: #FFFBFE;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.16);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: calc(100% - 32px);
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 40px;
+            padding: 8px 40px 8px 12px;
+            border: 1px solid #79747E;
+            border-radius: 4px;
+            font-size: 14px;
+            background: transparent;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border: 2px solid #1976D2;
+            padding: 7px 39px 7px 11px;
+        }
+
+        .edit-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: #49454F;
+            cursor: pointer;
+        }
+
+        .results-header {
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1C1B1F;
+            background: #FFFBFE;
+        }
+
+        .results-container {
+            background: #FFFBFE;
+        }
+
+        .result-item {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 16px;
+            padding: 16px;
+            min-height: 72px;
+            align-items: center;
+            border-bottom: 1px solid #CAC4D0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .result-item:hover {
+            background-color: #F3EDF7;
+        }
+
+        .result-item:focus {
+            outline: 2px solid #1976D2;
+            outline-offset: -2px;
+        }
+
+        .food-name {
+            font-size: 16px;
+            color: #1C1B1F;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .portion-size {
+            font-size: 14px;
+            color: #49454F;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .calorie-count {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1976D2;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .load-more-container {
+            padding: 16px;
+        }
+
+        .load-more-button {
+            width: 100%;
+            height: 40px;
+            background: transparent;
+            color: #1976D2;
+            border: 1px solid #79747E;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .load-more-button:hover {
+            background: #F3EDF7;
+            border-color: #1976D2;
+        }
+
+        .load-more-button:disabled {
+            color: #49454F;
+            border-color: #CAC4D0;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 24px;
+            color: #49454F;
+        }
+
+        @media (max-width: 768px) {
+            .result-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                text-align: left;
+            }
+            
+            .portion-size,
+            .calorie-count {
+                text-align: left;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1023px) {
+            .results-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1px;
+                background: #CAC4D0;
+            }
+            
+            .result-item {
+                background: #FFFBFE;
+                border-bottom: none;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .results-container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1px;
+                background: #CAC4D0;
+            }
+            
+            .result-item {
+                background: #FFFBFE;
+                border-bottom: none;
+                grid-template-columns: 1fr;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="search-header">
+        <div class="search-bar">
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput"
+                value="chicken breast"
+                aria-label="Search for food"
+            >
+            <svg class="edit-icon" viewBox="0 0 24 24" fill="currentColor" onclick="editSearch()">
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+            </svg>
+        </div>
+    </header>
+
+    <div class="results-header" id="resultsHeader">
+        15 results found for 'chicken breast'
+    </div>
+
+    <div class="results-container" id="resultsContainer">
+        <!-- Results will be populated by JavaScript -->
+    </div>
+
+    <div class="load-more-container">
+        <button class="load-more-button" id="loadMoreButton" onclick="loadMoreResults()">
+            Load More Results
+        </button>
+    </div>
+
+    <script>
+        const sampleResults = [
+            { name: "Chicken breast, skinless, boneless, raw", portion: "100g", calories: 165 },
+            { name: "Chicken breast, grilled", portion: "1 piece (85g)", calories: 140 },
+            { name: "Chicken breast, roasted, skin removed", portion: "100g", calories: 195 },
+            { name: "Chicken breast, fried, battered", portion: "1 piece (85g)", calories: 219 },
+            { name: "Chicken breast, marinated, grilled", portion: "100g", calories: 172 },
+            { name: "Chicken breast, smoked", portion: "100g", calories: 158 },
+            { name: "Chicken breast, poached", portion: "100g", calories: 164 },
+            { name: "Chicken breast, barbecued", portion: "1 piece (85g)", calories: 142 },
+            { name: "Chicken breast, stuffed with herbs", portion: "100g", calories: 189 },
+            { name: "Chicken breast, teriyaki", portion: "1 piece (85g)", calories: 156 },
+            { name: "Chicken breast, lemon pepper", portion: "100g", calories: 168 },
+            { name: "Chicken breast, honey glazed", portion: "1 piece (85g)", calories: 178 },
+            { name: "Chicken breast, cajun seasoned", portion: "100g", calories: 171 },
+            { name: "Chicken breast, buffalo style", portion: "1 piece (85g)", calories: 162 },
+            { name: "Chicken breast, Mediterranean style", portion: "100g", calories: 185 }
+        ];
+
+        const additionalResults = [
+            { name: "Chicken breast, organic, raw", portion: "100g", calories: 163 },
+            { name: "Chicken breast, free-range, grilled", portion: "1 piece (85g)", calories: 138 },
+            { name: "Chicken breast, herb crusted", portion: "100g", calories: 192 },
+            { name: "Chicken breast, parmesan crusted", portion: "1 piece (85g)", calories: 205 },
+            { name: "Chicken breast, coconut crusted", portion: "100g", calories: 198 }
+        ];
+
+        let currentResults = [...sampleResults];
+        let hasMoreResults = true;
+
+        function renderResults() {
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = '';
+
+            currentResults.forEach((result, index) => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'result-item';
+                resultItem.tabIndex = 0;
+                resultItem.setAttribute('role', 'button');
+                resultItem.setAttribute('aria-label', `${result.name}, ${result.portion}, ${result.calories} calories`);
+                
+                resultItem.innerHTML = `
+                    <div class="food-name">${result.name}</div>
+                    <div class="portion-size">${result.portion}</div>
+                    <div class="calorie-count">${result.calories} cal</div>
+                `;
+                
+                resultItem.addEventListener('click', () => selectFood(result));
+                resultItem.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectFood(result);
+                    }
+                });
+                
+                container.appendChild(resultItem);
+            });
+        }
+
+        function loadMoreResults() {
+            if (!hasMoreResults) return;
+
+            const button = document.getElementById('loadMoreButton');
+            button.disabled = true;
+            button.textContent = 'Loading...';
+
+            setTimeout(() => {
+                currentResults = [...currentResults, ...additionalResults];
+                hasMoreResults = false;
+                
+                renderResults();
+                updateResultsHeader();
+                
+                button.disabled = false;
+                button.textContent = 'No More Results';
+                button.style.display = 'none';
+            }, 1000);
+        }
+
+        function updateResultsHeader() {
+            const header = document.getElementById('resultsHeader');
+            const searchTerm = document.getElementById('searchInput').value;
+            header.textContent = `${currentResults.length} results found for '${searchTerm}'`;
+        }
+
+        function editSearch() {
+            const input = document.getElementById('searchInput');
+            input.focus();
+            input.select();
+        }
+
+        function selectFood(food) {
+            alert(`Selected: ${food.name}\nPortion: ${food.portion}\nCalories: ${food.calories}`);
+        }
+
+        // Handle search input changes
+        document.getElementById('searchInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const newQuery = this.value.trim();
+                if (newQuery) {
+                    // Simulate new search
+                    window.location.href = `search-results.html?q=${encodeURIComponent(newQuery)}`;
+                }
+            }
+        });
+
+        // Initialize page
+        renderResults();
+        updateResultsHeader();
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@ This repository contains demo workflows for Business Analysts (BA) that showcase
 
 Please watch the demo to get the detailed of how the workflow is executed:
 - [Introduction to BA's workflow with Amazon (1min)](https://vimeo.com/1098742563/16d1a81a85))
-- [Demo of BA's Workflow with AmazonQ (28min)](https://vimeo.com/1098759781)
+- [Demo of BA's Workflow with AmazonQ (28min)](https://vimeo.com/1098759781)(Note: If watch at 2x speed, it only takes 15min)
 
 ### Features
 - **Demo Project Overview**: BA Workflow starting from client requirements at Confluence

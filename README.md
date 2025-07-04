@@ -1,6 +1,10 @@
 ## Demo Workflows for BA (Business Analyst)
 This repository contains demo workflows for Business Analysts (BA) that showcase how to use AI tools to assist in various tasks such as document generation, Confluence page creation, Jira ticket creation, and UI mockup design.
 
+Please watch the demo to get the detailed of how the workflow is executed:
+- [Introduction to BA's workflow with Amazon (1min)](https://vimeo.com/1098742563/16d1a81a85))
+- [Demo of BA's Workflow with AmazonQ (28min)](https://vimeo.com/1098759781)
+
 ### Features
 - **Demo Project Overview**: BA Workflow starting from client requirements at Confluence
 - **AI-Assisted Development**: Document Generation, Confluence Page Creation, Jira Ticket Creation, and UI Mockups Design
@@ -19,10 +23,6 @@ This repository contains demo workflows for Business Analysts (BA) that showcase
 ```json
 {
   "mcpServers": {
-    "Framelink Figma MCP": {
-      "command": "npx",
-      "args": ["-y", "figma-developer-mcp", "--figma-api-key=your-figma-api-key", "--stdio"]
-    },
     "mcp-atlassian": {
       "command": "docker",
       "timeout": 60000,
@@ -55,6 +55,10 @@ This repository contains demo workflows for Business Analysts (BA) that showcase
   }
 }
 ```
+- Make sure to follow the guide to setup for Jira & Figma credentials:
+  
+Jira: https://github.com/sooperset/mcp-atlassian
+
 ### Document Template
 - The document templates for Confluenece documents / Jira tickets are located in the `.amazonq/templates` directory. You can customize these templates to fit your project requirements.
 

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calorie Counter Application - UI Mockup Navigation">
+    <title>Calorie Counter - UI Mockups</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #FFFBFE;
+            color: #1C1B1F;
+            line-height: 1.6;
+            padding: 32px 16px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .app-title {
+            font-size: 32px;
+            font-weight: 500;
+            color: #1976D2;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #49454F;
+        }
+
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .screen-card {
+            background: #FFFBFE;
+            border-radius: 12px;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.12);
+            padding: 24px;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .screen-card:hover {
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.16);
+            transform: translateY(-2px);
+        }
+
+        .screen-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1976D2;
+            margin-bottom: 8px;
+        }
+
+        .screen-description {
+            font-size: 14px;
+            color: #49454F;
+            margin-bottom: 16px;
+        }
+
+        .screen-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .screen-features li {
+            font-size: 12px;
+            color: #49454F;
+            margin-bottom: 4px;
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .screen-features li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #1976D2;
+        }
+
+        .info-section {
+            background: #F3EDF7;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .info-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1C1B1F;
+            margin-bottom: 12px;
+        }
+
+        .info-text {
+            font-size: 14px;
+            color: #49454F;
+            margin-bottom: 16px;
+        }
+
+        .tech-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .spec-item {
+            background: #FFFBFE;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #1976D2;
+        }
+
+        .spec-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #49454F;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .spec-value {
+            font-size: 14px;
+            color: #1C1B1F;
+        }
+
+        @media (max-width: 768px) {
+            .app-title {
+                font-size: 24px;
+            }
+            
+            .screens-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tech-specs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="app-title">Calorie Counter Application</h1>
+            <p class="subtitle">UI Mockup Screens - Interactive Prototypes</p>
+        </header>
+
+        <div class="info-section">
+            <h2 class="info-title">About These Mockups</h2>
+            <p class="info-text">
+                These are fully functional HTML prototypes of the Calorie Counter application screens, 
+                built according to Material Design 3 specifications. Each screen is standalone and 
+                includes interactive elements, responsive design, and accessibility features.
+            </p>
+            <div class="tech-specs">
+                <div class="spec-item">
+                    <div class="spec-label">Design System</div>
+                    <div class="spec-value">Material Design 3</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Responsive</div>
+                    <div class="spec-value">Mobile, Tablet, Desktop</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Accessibility</div>
+                    <div class="spec-value">WCAG 2.1 Compliant</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Technology</div>
+                    <div class="spec-value">HTML5, CSS3, JavaScript</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="screens-grid">
+            <a href="landing-search.html" class="screen-card">
+                <h3 class="screen-title">Landing/Search Screen</h3>
+                <p class="screen-description">
+                    The main entry point where users can search for food items to get nutritional information.
+                </p>
+                <ul class="screen-features">
+                    <li>Material Design search input with validation</li>
+                    <li>USDA attribution and branding</li>
+                    <li>Responsive layout for all devices</li>
+                    <li>Form validation and error handling</li>
+                    <li>Keyboard navigation support</li>
+                </ul>
+            </a>
+
+            <a href="search-results.html" class="screen-card">
+                <h3 class="screen-title">Search Results Screen</h3>
+                <p class="screen-description">
+                    Displays search results in a clean, scannable list format with nutritional information.
+                </p>
+                <ul class="screen-features">
+                    <li>Persistent search header for easy re-searching</li>
+                    <li>Three-column result layout (food, portion, calories)</li>
+                    <li>Load more functionality with pagination</li>
+                    <li>Responsive grid layout for different screen sizes</li>
+                    <li>Interactive result selection</li>
+                </ul>
+            </a>
+
+            <a href="no-results.html" class="screen-card">
+                <h3 class="screen-title">No Results Screen</h3>
+                <p class="screen-description">
+                    Helpful empty state with suggestions and popular searches when no results are found.
+                </p>
+                <ul class="screen-features">
+                    <li>Empty state illustration with clear messaging</li>
+                    <li>Actionable suggestions for better search results</li>
+                    <li>Popular search tags for quick access</li>
+                    <li>Try again functionality</li>
+                    <li>Contextual help and guidance</li>
+                </ul>
+            </a>
+
+            <a href="loading.html" class="screen-card">
+                <h3 class="screen-title">Loading Screen</h3>
+                <p class="screen-description">
+                    Loading state with progress indication and cancel option for better user experience.
+                </p>
+                <ul class="screen-features">
+                    <li>Animated loading spinner with Material Design styling</li>
+                    <li>Dynamic loading messages that update over time</li>
+                    <li>Cancel search option after 3 seconds</li>
+                    <li>Accessibility announcements for screen readers</li>
+                    <li>Simulated search completion with realistic timing</li>
+                </ul>
+            </a>
+        </div>
+
+        <div class="info-section">
+            <h2 class="info-title">Navigation Flow</h2>
+            <p class="info-text">
+                The screens are interconnected and simulate a real application flow:
+            </p>
+            <ul style="list-style: none; padding: 0; margin-top: 16px;">
+                <li style="margin-bottom: 8px; padding-left: 16px; position: relative;">
+                    <span style="position: absolute; left: 0; color: #1976D2;">1.</span>
+                    Start at <strong>Landing/Search</strong> to enter a search term
+                </li>
+                <li style="margin-bottom: 8px; padding-left: 16px; position: relative;">
+                    <span style="position: absolute; left: 0; color: #1976D2;">2.</span>
+                    View <strong>Loading</strong> screen during search processing
+                </li>
+                <li style="margin-bottom: 8px; padding-left: 16px; position: relative;">
+                    <span style="position: absolute; left: 0; color: #1976D2;">3.</span>
+                    See <strong>Search Results</strong> for successful searches
+                </li>
+                <li style="margin-bottom: 8px; padding-left: 16px; position: relative;">
+                    <span style="position: absolute; left: 0; color: #1976D2;">4.</span>
+                    View <strong>No Results</strong> when no matches are found
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calorie Counter - Search for food nutritional information">
+    <title>Calorie Counter - Search</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #FFFBFE;
+            color: #1C1B1F;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            height: 64px;
+            background-color: #FFFBFE;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.12);
+        }
+
+        .app-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #1976D2;
+        }
+
+        .usda-attribution {
+            font-size: 12px;
+            color: #49454F;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+
+        .search-container {
+            width: 90%;
+            max-width: 480px;
+            background: #FFFBFE;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.12);
+        }
+
+        .search-field {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 56px;
+            padding: 16px 48px 16px 48px;
+            border: 1px solid #79747E;
+            border-radius: 4px;
+            font-size: 16px;
+            background: transparent;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border: 2px solid #1976D2;
+            padding: 15px 47px 15px 47px;
+        }
+
+        .search-input.error {
+            border: 2px solid #BA1A1A;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            color: #49454F;
+        }
+
+        .clear-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            color: #49454F;
+            cursor: pointer;
+            display: none;
+        }
+
+        .search-input:not(:placeholder-shown) + .search-icon + .clear-icon {
+            display: block;
+        }
+
+        .search-button {
+            width: 100%;
+            height: 40px;
+            background: #1976D2;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-button:hover {
+            background: #1565C0;
+        }
+
+        .search-button:disabled {
+            background: #E7E0EC;
+            color: #49454F;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            color: #BA1A1A;
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 12px;
+            }
+            
+            .app-title {
+                font-size: 20px;
+            }
+            
+            .usda-attribution {
+                font-size: 10px;
+            }
+            
+            .search-container {
+                width: 100%;
+                margin: 0 16px;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="app-title">Calorie Counter</h1>
+        <span class="usda-attribution">Powered by USDA FoodData Central</span>
+    </header>
+
+    <main class="main-content">
+        <div class="search-container">
+            <form id="searchForm">
+                <div class="search-field">
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        id="searchInput"
+                        placeholder="e.g., chicken breast, apple"
+                        aria-label="Search for food"
+                        required
+                    >
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                    <svg class="clear-icon" viewBox="0 0 24 24" fill="currentColor" onclick="clearSearch()">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </div>
+                <button type="submit" class="search-button" id="searchButton">Search</button>
+                <div class="error-message" id="errorMessage"></div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const errorMessage = document.getElementById('errorMessage');
+
+        function clearSearch() {
+            searchInput.value = '';
+            searchInput.focus();
+            hideError();
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('show');
+            searchInput.classList.add('error');
+        }
+
+        function hideError() {
+            errorMessage.classList.remove('show');
+            searchInput.classList.remove('error');
+        }
+
+        searchInput.addEventListener('input', function() {
+            hideError();
+            if (this.value.trim()) {
+                searchButton.disabled = false;
+            } else {
+                searchButton.disabled = true;
+            }
+        });
+
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            
+            if (!query) {
+                showError('Please enter a food item to search');
+                return;
+            }
+
+            if (query.length < 2) {
+                showError('Search term must be at least 2 characters long');
+                return;
+            }
+
+            // Simulate search - in real app, this would redirect to results
+            searchButton.disabled = true;
+            searchButton.textContent = 'Searching...';
+            
+            setTimeout(() => {
+                // Simulate navigation to results page
+                window.location.href = `search-results.html?q=${encodeURIComponent(query)}`;
+            }, 1000);
+        });
+
+        // Initialize button state
+        searchButton.disabled = true;
+    </script>
+</body>
+</html>

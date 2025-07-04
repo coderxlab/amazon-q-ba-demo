@@ -9,6 +9,8 @@ This repository contains demo workflows for Business Analysts (BA) that showcase
 
 ### Demo Project Overview
 - The diagram below illustrates the workflow for the demo project, starting from client requirements documented in Confluence to the creation of Jira tickets and UI mockups.
+  
+![iScreen Shoter - 20250704082006154](https://github.com/user-attachments/assets/23ab1159-8459-46a2-b9dc-6ce694b4c891)
 
 
 ### MCP Setup
